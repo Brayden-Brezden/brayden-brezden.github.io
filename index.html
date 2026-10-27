@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Why this line? Without it, a phone pretends to be a wide desktop screen and shrinks the whole page. This tells it to use its real width. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brayden Brezden — Portfolio</title>
+    <!-- Google Fonts first, then my stylesheet, so my CSS can use them. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=Literata:wght@400;700&amp;display=swap" rel="stylesheet">
+    <!-- Every style lives in style.css: no <style> blocks and no style= attributes (an A1 rule). -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Why header, nav, main, section, footer instead of div? They look the same as a div, but they say what the content is. A screen reader can jump straight to main or the nav, and a search engine knows the footer is boilerplate. -->
+    <header>
+        <!-- What is the container div for? The dark header band goes edge to edge, but its contents line up with the sections below. A div is fine here because it has no meaning, it's only for layout. -->
+        <div class="container">
+            <h1>Brayden Brezden</h1>
+            <p class="tagline">Studying IT at VIU. Colouring manga after class.</p>
+            <!-- How does a nav link jump? href="#about" goes to the element with id="about" on this page (the Nanaimo legend trick). Copy the id, paste it after the #. -->
+            <nav>
+                <a href="#about">About Me</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Why is the id on the section and not the h2 (like Lab 4)? The brief asks for three sections with ids, and the whole section is the place the nav link jumps to. -->
+        <section id="about">
+            <h2>About Me</h2>
+            <!-- What is about-row? A flex row: my words on the left, the 3D tablet on the right. It wraps, so on a narrow screen the tablet drops under my words. -->
+            <div class="about-row">
+                <div class="about-text">
+                    <p>Hi, I'm Brayden. I'm a student in the Information Technology and Applied Systems (ITAS) program at Vancouver Island University, and I'm working toward a job on a cyber-security development team. Outside of class, I colour manga. I picked it up during lockdown, and now I colour pages in Krita, Clip Studio Paint and Procreate.</p>
+                    <h3>Skills</h3>
+                    <!-- Why a ul? It's a list of skills. The pill-shaped "tags" look comes from CSS (.skills), not from the HTML. -->
+                    <ul class="skills">
+                        <li>HTML and CSS</li>
+                        <li>Digital colouring</li>
+                        <li>3D scenes with AI</li>
+                    </ul>
+                </div>
+                <!-- My 3D element: a drawing tablet that stands for my hobby. The script at the bottom of the page draws into this div.
+                     Why role="img" and aria-label? A screen reader can't see a 3D drawing, so this gives it a sentence to read out instead. -->
+                <div id="scene" role="img" aria-label="A 3D drawing tablet, propped up, with a colouring app open on its screen. A pink stylus lifts off the desk and colours one manga panel pink."></div>
+            </div>
+            <!-- Why figure? It holds a picture together with its caption (figcaption).
+                 Why width and height when CSS sets the size? They tell the browser the picture's shape before it loads, so the page doesn't jump when it arrives.
+                 Why alt? Screen readers read it out, and it shows if the picture can't load. The file is in my a1 folder, not linked from someone else's server. -->
+            <figure class="about-image">
+                <!-- Why srcset and sizes? srcset lists both files and how many pixels wide each one is (400w, 1416w).
+                     sizes tells the browser how wide the picture shows on the page: 20rem at most (style.css), never wider.
+                     The browser does the maths and downloads the smallest file that's sharp enough for that screen. -->
+                <img src="images/my-colouring.webp"
+                     srcset="images/my-colouring-thumb.webp 400w, images/my-colouring.webp 1416w"
+                     sizes="20rem"
+                     alt="My digital colouring of a manga page: a girl with black hair swings a huge mechanical weapon through flying rubble, with acid-green slashes across a hot pink sky." width="1416" height="2000">
+                <!-- Why credit the line art? I coloured it, but Yukinobu Tatsu drew it. The link goes to my X profile, where I post my colourings. -->
+                <figcaption>One of my manga colourings. Line art: Yukinobu Tatsu's Chainsaw Man fan art. Colours: me (<a href="https://x.com/hopswas">@hopswas</a>).</figcaption>
+            </figure>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <!-- Why a ul again? My three goals are a list. The side-by-side row comes from CSS: display: flex and flex-wrap: wrap on .projects, the container that holds all three. -->
+            <!-- Why is each title a link? A link can take keyboard focus, so Tab reaches it (the Tab test), and it's the "link to more about it". -->
+            <ul class="projects">
+                <li>
+                    <h3><a href="https://www.viu.ca/programs/trades-applied-technology/information-technology-and-applied-systems-business-information">Join a cyber-security dev team</a></h3>
+                    <p>After ITAS, I'd like to join a development team that builds and tests cyber-security software.</p>
+                </li>
+                <li>
+                    <h3><a href="https://www.comptia.org/en-us/certifications/security/">Earn CompTIA Security+</a></h3>
+                    <p>I want to earn Security+, a first certification for cyber-security work.</p>
+                </li>
+                <li>
+                    <h3><a href="https://itch.io/">Make small games on the side</a></h3>
+                    <p>On the side, I'd like to explore making small indie games and mods.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <!-- Never a phone number or a home address: this page is public from week 6. The email is one I made just for this page.
+                 Why mailto:? Clicking it opens the visitor's email app with my address already filled in. -->
+            <ul class="contact">
+                <li>Email: <a href="mailto:brayden.itas@gmail.com">brayden.itas@gmail.com</a></li>
+                <li>GitHub: <a href="https://github.com/Brayden-Brezden">github.com/Brayden-Brezden</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Brayden Brezden 2026</p>
+    </footer>
+
+    <!-- My 3D element: written by Claude from my brief (prompts.md, Prompt 1). It draws into the #scene div in About Me.
+         One import map per page, and it must come before the module script. -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+
+    // ---- Colours: only these four, from my palette ----
+    // Background colour (surface white, the same as the About Me panel, so there's no box around the scene)
+    const BACKGROUND_COLOUR = "#ffffff";
+    // Main object colour: the tablet, and the ink lines on the manga page (ink)
+    const TABLET_COLOUR = "#1a1a1a";
+    // Accent colour: the stylus and the coloured-in panel
+    const ACCENT_COLOUR = "#c2255c";
+    // Light colour (paper, a warm white). The manga page on the screen is paper too.
+    const LIGHT_COLOUR = "#faf7f2";
+
+    // ---- Sizes (in scene units: the tablet is 3.2 wide) ----
+    // Tablet width, thickness, and depth (front to back)
+    const TABLET_WIDTH = 3.2;
+    const TABLET_THICKNESS = 0.14;
+    const TABLET_DEPTH = 2.1;
+    // Width of the ink border (bezel) around the screen
+    const BEZEL = 0.16;
+    // Stylus length and thickness (radius)
+    const STYLUS_LENGTH = 2.1;
+    const STYLUS_RADIUS = 0.055;
+    // Gap between the tablet and the stylus
+    const STYLUS_GAP = 0.25;
+    // How much the stylus is turned on the desk (radians: 0.12 is about 7 degrees)
+    const STYLUS_ANGLE = 0.12;
+    // Change 1: how far the tablet is propped up toward you (radians: 0.26 is about 15 degrees)
+    const PROP_ANGLE = 0.26;
+    // Change 1: how far behind the tablet the kickstand's foot lands
+    const STAND_REACH = 0.55;
+
+    // ---- Motion ----
+    // How far the tablet floats up and down
+    const FLOAT_HEIGHT = 0.08;
+    // Float speed (bigger = faster)
+    const FLOAT_SPEED = 1.1;
+    // How far it turns each way (radians: 0.25 is about 14 degrees)
+    const TURN_ANGLE = 0.25;
+    // Turn speed (bigger = faster)
+    const TURN_SPEED = 0.45;
+    // Change 2: how long the pen takes to colour the panel (seconds)
+    const COLOUR_SECONDS = 4.5;
+    // Change 2: how many back-and-forth strokes it colours the panel with
+    const COLOUR_STROKES = 6;
+    // Change 2: how high the nib hovers before it touches the screen, and how high it arcs when it moves
+    const PEN_HOVER = 0.25;
+    const PEN_ARC = 0.6;
+
+    // ---- Lights ----
+    // Main light strength, and the soft fill light that keeps the dark tablet from going pure black.
+    // Together they add up to about π (3.14), so a face pointing at the light shows its true palette colour.
+    const MAIN_LIGHT_STRENGTH = 2.4;
+    const FILL_LIGHT_STRENGTH = 0.75;
+
+    // The frame's shape from my brief: 400 x 300
+    const FRAME_SHAPE = 400 / 300;
+    // The screen is the top of the tablet minus the bezel
+    const SCREEN_WIDTH = TABLET_WIDTH - 2 * BEZEL;
+    const SCREEN_DEPTH = TABLET_DEPTH - 2 * BEZEL;
+
+    const box = document.getElementById("scene");
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(BACKGROUND_COLOUR);
+
+    // Camera: field of view 35, looking down at the tablet from the front
+    const camera = new THREE.PerspectiveCamera(35, FRAME_SHAPE, 0.1, 100);
+    // Camera position (x = right, y = up, z = toward you)
+    camera.position.set(0, 4, 4.4);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    // Sharp on high-resolution screens (capped at 2 so it stays fast)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    box.appendChild(renderer.domElement);
+
+    // Main light: from the upper left, in front. It casts the soft shadow under the tablet.
+    const mainLight = new THREE.DirectionalLight(LIGHT_COLOUR, MAIN_LIGHT_STRENGTH);
+    // Main light position (x = right, y = up, z = toward you)
+    mainLight.position.set(-3, 6, 4);
+    mainLight.castShadow = true;
+    // A small shadow map gives the shadow soft edges. The box is the area that gets shadows.
+    mainLight.shadow.mapSize.set(512, 512);
+    mainLight.shadow.camera.left = -3;
+    mainLight.shadow.camera.right = 3;
+    mainLight.shadow.camera.top = 3;
+    mainLight.shadow.camera.bottom = -3;
+    scene.add(mainLight);
+
+    // Fill light: soft light from every direction
+    scene.add(new THREE.AmbientLight(LIGHT_COLOUR, FILL_LIGHT_STRENGTH));
+
+    // ---- The screen: a colouring app with my manga page open in it ----
+    // It's drawn on a hidden 2D canvas (never added to my page), then used as the screen's picture.
+    // Change 1: the page is smaller now, inside a colouring app (tools, colours and layers around it).
+    function drawColouringApp() {
+        const canvas = document.createElement("canvas");
+        // Picture size in pixels, the same shape as the screen
+        canvas.width = 2048;
+        canvas.height = Math.round(2048 * SCREEN_DEPTH / SCREEN_WIDTH);
+        const ctx = canvas.getContext("2d");
+        const W = canvas.width;
+        const H = canvas.height;
+        // Sizes of the app's parts (pixels)
+        const menuH = 70;      // menu bar along the top
+        const statusH = 50;    // status bar along the bottom
+        const toolsW = 130;    // tool strip on the left
+        const sideW = 380;     // colours and layers on the right
+        const line = 4;        // ink divider lines
+
+        // App background: paper
+        ctx.fillStyle = LIGHT_COLOUR;
+        ctx.fillRect(0, 0, W, H);
+
+        // Menu bar: short ink bars stand for the menu words
+        ctx.fillStyle = TABLET_COLOUR;
+        let menuX = 30;
+        for (const barW of [70, 90, 60, 110, 80]) {
+            ctx.fillRect(menuX, menuH / 2 - 7, barW, 14);
+            menuX += barW + 40;
+        }
+        // Ink lines that split the app into its parts
+        ctx.fillRect(0, menuH - line, W, line);
+        ctx.fillRect(toolsW - line, menuH, line, H - menuH);
+        ctx.fillRect(W - sideW, menuH, line, H - menuH);
+
+        // Tool strip: five tool buttons. The pen (the first one) is picked, so it's pink.
+        const tile = 90;
+        for (let i = 0; i < 5; i++) {
+            const x = (toolsW - line - tile) / 2;
+            const y = menuH + 24 + i * (tile + 18);
+            const picked = i === 0;
+            ctx.fillStyle = picked ? ACCENT_COLOUR : BACKGROUND_COLOUR;
+            ctx.fillRect(x, y, tile, tile);
+            ctx.lineWidth = line;
+            ctx.strokeStyle = TABLET_COLOUR;
+            ctx.strokeRect(x, y, tile, tile);
+            toolIcon(ctx, i, x + tile / 2, y + tile / 2, picked ? LIGHT_COLOUR : TABLET_COLOUR);
+        }
+
+        // Right side, top: the colour I'm using (big pink square) and my four palette colours.
+        // Pink has a thick ring around it because it's the one picked.
+        const sideX = W - sideW + line + 30;
+        ctx.fillStyle = ACCENT_COLOUR;
+        ctx.fillRect(sideX, menuH + 30, 130, 130);
+        ctx.lineWidth = line;
+        ctx.strokeStyle = TABLET_COLOUR;
+        ctx.strokeRect(sideX, menuH + 30, 130, 130);
+        const swatches = [TABLET_COLOUR, ACCENT_COLOUR, LIGHT_COLOUR, BACKGROUND_COLOUR];
+        swatches.forEach((colour, i) => {
+            const x = sideX + 160 + (i % 2) * 75;
+            const y = menuH + 30 + Math.floor(i / 2) * 75;
+            ctx.fillStyle = colour;
+            ctx.fillRect(x, y, 55, 55);
+            ctx.lineWidth = colour === ACCENT_COLOUR ? 10 : line;
+            ctx.strokeRect(x, y, 55, 55);
+        });
+
+        // Right side, below: four layers. The colour layer is the one I'm on, so it's pink.
+        const layerW = sideW - 60 - line;
+        for (let i = 0; i < 4; i++) {
+            const y = menuH + 220 + i * 100;
+            const picked = i === 1;
+            ctx.fillStyle = picked ? ACCENT_COLOUR : BACKGROUND_COLOUR;
+            ctx.fillRect(sideX, y, layerW, 80);
+            ctx.lineWidth = line;
+            ctx.strokeStyle = TABLET_COLOUR;
+            ctx.strokeRect(sideX, y, layerW, 80);
+            // A tiny thumbnail, and a bar for the layer's name
+            ctx.fillStyle = LIGHT_COLOUR;
+            ctx.fillRect(sideX + 12, y + 12, 56, 56);
+            ctx.strokeRect(sideX + 12, y + 12, 56, 56);
+            ctx.fillStyle = picked ? LIGHT_COLOUR : TABLET_COLOUR;
+            ctx.fillRect(sideX + 90, y + 33, 150 - i * 20, 14);
+        }
+
+        // Workspace: ink, like an art app's dark mode, so the page stands out in the middle
+        const workX = toolsW;
+        const workY = menuH;
+        const workW = W - sideW - toolsW;
+        const workH = H - menuH - statusH;
+        ctx.fillStyle = TABLET_COLOUR;
+        ctx.fillRect(workX, workY, workW, workH);
+
+        // The manga page, open in the middle of the workspace. Its height is 84% of the
+        // workspace (make this smaller for more dark room around the page).
+        const pageH = workH * 0.84;
+        const pageW = pageH * 0.7;     // a real page's shape: taller than it is wide
+        const colourPanel = drawMangaPage(ctx, workX + (workW - pageW) / 2, workY + (workH - pageH) / 2, pageW, pageH);
+
+        return { canvas: canvas, colourPanel: colourPanel };
+    }
+
+    // Little tool pictures: 0 pen, 1 brush, 2 eraser, 3 fill bucket, 4 move
+    function toolIcon(ctx, tool, cx, cy, colour) {
+        ctx.strokeStyle = colour;
+        ctx.fillStyle = colour;
+        ctx.lineWidth = 7;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        if (tool === 0) {              // pen: a slanted line
+            ctx.moveTo(cx - 22, cy + 22);
+            ctx.lineTo(cx + 22, cy - 22);
+            ctx.stroke();
+        } else if (tool === 1) {       // brush: a handle with a round tip
+            ctx.moveTo(cx + 22, cy - 22);
+            ctx.lineTo(cx - 6, cy + 6);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(cx - 12, cy + 12, 11, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (tool === 2) {       // eraser: a box
+            ctx.strokeRect(cx - 22, cy - 14, 44, 28);
+        } else if (tool === 3) {       // fill bucket: a triangle
+            ctx.moveTo(cx, cy - 22);
+            ctx.lineTo(cx + 22, cy + 18);
+            ctx.lineTo(cx - 22, cy + 18);
+            ctx.closePath();
+            ctx.fill();
+        } else {                       // move: a plus
+            ctx.moveTo(cx - 22, cy);
+            ctx.lineTo(cx + 22, cy);
+            ctx.moveTo(cx, cy - 22);
+            ctx.lineTo(cx, cy + 22);
+            ctx.stroke();
+        }
+        ctx.lineCap = "butt";
+    }
+
+    // The manga page: paper with four inked panels. One panel is coloured in pink.
+    function drawMangaPage(ctx, pageX, pageY, pageW, pageH) {
+        // One "unit" is 1% of the page's width, so everything scales with the page
+        const u = pageW / 100;
+        const margin = 6 * u;
+        const gutter = 3.5 * u;
+        const border = 1.2 * u;
+
+        ctx.fillStyle = LIGHT_COLOUR;
+        ctx.fillRect(pageX, pageY, pageW, pageH);
+
+        // Fills one panel, draws what's inside it (kept inside the panel), then inks its border
+        function panel(x, y, w, h, fill, drawInside) {
+            ctx.fillStyle = fill;
+            ctx.fillRect(x, y, w, h);
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(x, y, w, h);
+            ctx.clip();
+            ctx.strokeStyle = TABLET_COLOUR;
+            ctx.fillStyle = TABLET_COLOUR;
+            drawInside(x, y, w, h);
+            ctx.restore();
+            ctx.lineWidth = border;
+            ctx.strokeStyle = TABLET_COLOUR;
+            ctx.strokeRect(x, y, w, h);
+        }
+
+        // Layout: a wide panel on top, two side by side in the middle, a wide panel at the bottom
+        const innerW = pageW - 2 * margin;
+        const innerH = pageH - 2 * margin - 2 * gutter;
+        const left = pageX + margin;
+        const topY = pageY + margin;
+        const topH = innerH * 0.3;
+        const midY = topY + topH + gutter;
+        const midH = innerH * 0.4;
+        const lowY = midY + midH + gutter;
+        const lowH = innerH * 0.3;
+        const halfW = (innerW - gutter) / 2;
+
+        // Top panel: a speech bubble with three lines of "words"
+        panel(left, topY, innerW, topH, LIGHT_COLOUR, (x, y, w, h) => {
+            const bubbleX = x + w * 0.42;
+            const bubbleY = y + h * 0.46;
+            ctx.lineWidth = 0.8 * u;
+            ctx.fillStyle = BACKGROUND_COLOUR;
+            // The tail, drawn first so the bubble covers its top
+            ctx.beginPath();
+            ctx.moveTo(bubbleX + w * 0.12, bubbleY + h * 0.18);
+            ctx.lineTo(bubbleX + w * 0.3, bubbleY + h * 0.48);
+            ctx.lineTo(bubbleX + w * 0.2, bubbleY + h * 0.12);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            // The bubble
+            ctx.beginPath();
+            ctx.ellipse(bubbleX, bubbleY, w * 0.3, h * 0.32, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // The "words": three ink bars, each a bit shorter
+            ctx.fillStyle = TABLET_COLOUR;
+            for (let i = 0; i < 3; i++) {
+                const barW = w * (0.34 - i * 0.07);
+                ctx.fillRect(bubbleX - barW / 2, bubbleY - h * 0.13 + i * h * 0.12, barW, h * 0.05);
+            }
+        });
+
+        // Middle left: the panel the stylus colours in. Only its border is drawn here.
+        // Change 2: its pink and focus lines are on their own little picture on top (drawColourPanel),
+        // so they can change while the pen colours.
+        panel(left, midY, halfW, midH, LIGHT_COLOUR, () => {});
+
+        // Middle right: screentone dots that get bigger toward the bottom
+        panel(left + halfW + gutter, midY, halfW, midH, LIGHT_COLOUR, (x, y, w, h) => {
+            const step = 2 * u;
+            for (let dy = step / 2; dy < h; dy += step) {
+                const radius = (0.08 + 0.67 * (dy / h)) * u;
+                for (let dx = step / 2; dx < w; dx += step) {
+                    ctx.beginPath();
+                    ctx.arc(x + dx, y + dy, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        });
+
+        // Bottom panel: speed lines rushing in from the right
+        panel(left, lowY, innerW, lowH, LIGHT_COLOUR, (x, y, w, h) => {
+            ctx.lineWidth = 0.45 * u;
+            for (let i = 0; i < 16; i++) {
+                const lineY = y + 1.5 * u + i * (h - 3 * u) / 15;
+                // Different lengths, so it looks hand-drawn
+                const length = w * (0.3 + 0.15 * ((i * 7) % 5));
+                ctx.beginPath();
+                ctx.moveTo(x + w, lineY);
+                ctx.lineTo(x + w - length, lineY);
+                ctx.stroke();
+            }
+        });
+
+        // Tell the rest of the script where the colour-in panel is (inside its border, in pixels)
+        return { x: left + border / 2, y: midY + border / 2, w: halfW - border, h: midH - border, u: u };
+    }
+
+    // ---- The tablet and the stylus float together as one group ----
+    const drawingSet = new THREE.Group();
+    // Nudged left, so the tablet and stylus together sit in the middle of the frame
+    drawingSet.position.x = -0.25;
+    scene.add(drawingSet);
+
+    // Materials: shiny-ish ink plastic for the tablet, pink and ink plastic for the pen and stand
+    const tabletPlastic = new THREE.MeshStandardMaterial({ color: TABLET_COLOUR, roughness: 0.35 });
+    const pinkPlastic = new THREE.MeshStandardMaterial({ color: ACCENT_COLOUR, roughness: 0.45 });
+    const inkPlastic = new THREE.MeshStandardMaterial({ color: TABLET_COLOUR, roughness: 0.6 });
+
+    // Change 1: the tablet is propped up toward you, so it gets its own group that tilts
+    const tablet = new THREE.Group();
+    tablet.rotation.x = PROP_ANGLE;
+    drawingSet.add(tablet);
+    // The desk (invisible): level with the tablet's front edge, which dips down when it tilts
+    const DESK_Y = -(TABLET_THICKNESS / 2) * Math.cos(PROP_ANGLE) - (TABLET_DEPTH / 2) * Math.sin(PROP_ANGLE);
+
+    // Tablet body: an ink slab with rounded edges
+    const tabletBody = new THREE.Mesh(
+        new RoundedBoxGeometry(TABLET_WIDTH, TABLET_THICKNESS, TABLET_DEPTH, 4, 0.06),
+        tabletPlastic
+    );
+    tabletBody.castShadow = true;
+    tablet.add(tabletBody);
+
+    // Screen: the colouring app, lying just on top of the tablet.
+    // MeshBasicMaterial isn't shaded by the lights, because a screen gives off its own light.
+    const app = drawColouringApp();
+    const screenTexture = new THREE.CanvasTexture(app.canvas);
+    screenTexture.colorSpace = THREE.SRGBColorSpace;
+    // Keeps the screen sharp when it's seen at an angle
+    screenTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    const tabletScreen = new THREE.Mesh(
+        new THREE.PlaneGeometry(SCREEN_WIDTH, SCREEN_DEPTH),
+        new THREE.MeshBasicMaterial({ map: screenTexture })
+    );
+    // Lie flat (a plane starts upright), just above the tablet's top
+    tabletScreen.rotation.x = -Math.PI / 2;
+    tabletScreen.position.y = TABLET_THICKNESS / 2 + 0.003;
+    tablet.add(tabletScreen);
+
+    // Turns a spot on the screen picture (in pixels) into a point on the tablet's screen
+    function screenPoint(pixelX, pixelY) {
+        return new THREE.Vector3(
+            (pixelX / app.canvas.width - 0.5) * SCREEN_WIDTH,
+            TABLET_THICKNESS / 2 + 0.005,
+            (pixelY / app.canvas.height - 0.5) * SCREEN_DEPTH
+        );
+    }
+
+    // ---- Change 2: the panel the stylus colours in ----
+    // Its own small canvas, on a little plane lying exactly over the empty panel on the screen.
+    // Only this small picture is redrawn while the pen colours, not the whole screen.
+    const panelRect = app.colourPanel;
+    const panelCanvas = document.createElement("canvas");
+    panelCanvas.width = Math.round(panelRect.w);
+    panelCanvas.height = Math.round(panelRect.h);
+    const panelCtx = panelCanvas.getContext("2d");
+    const panelTexture = new THREE.CanvasTexture(panelCanvas);
+    panelTexture.colorSpace = THREE.SRGBColorSpace;
+    panelTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    const panelOverlay = new THREE.Mesh(
+        new THREE.PlaneGeometry(panelRect.w / app.canvas.width * SCREEN_WIDTH, panelRect.h / app.canvas.height * SCREEN_DEPTH),
+        new THREE.MeshBasicMaterial({ map: panelTexture })
+    );
+    panelOverlay.rotation.x = -Math.PI / 2;
+    panelOverlay.position.copy(screenPoint(panelRect.x + panelRect.w / 2, panelRect.y + panelRect.h / 2));
+    tablet.add(panelOverlay);
+
+    // Where the nib is on the panel (in panel pixels) when it's `amount` coloured (0 = not started, 1 = done).
+    // The pen goes back and forth in COLOUR_STROKES rows, top to bottom.
+    function nibInPanel(amount) {
+        const w = panelCanvas.width;
+        const h = panelCanvas.height;
+        const row = Math.min(Math.floor(amount * COLOUR_STROKES), COLOUR_STROKES - 1);
+        const along = amount * COLOUR_STROKES - row;       // how far along this row (0 to 1)
+        const inset = h / COLOUR_STROKES * 0.4;            // keeps the nib a little inside the panel
+        const x = row % 2 === 0 ? inset + along * (w - 2 * inset) : w - inset - along * (w - 2 * inset);
+        return { x: x, y: (row + 0.5) * h / COLOUR_STROKES, row: row };
+    }
+
+    // Draws the panel: paper, the pink strokes so far, then the ink focus lines on top.
+    // opacity fades the pink out at the end of each loop.
+    function drawColourPanel(amount, opacity) {
+        const w = panelCanvas.width;
+        const h = panelCanvas.height;
+        const u = panelRect.u;
+        panelCtx.fillStyle = LIGHT_COLOUR;
+        panelCtx.fillRect(0, 0, w, h);
+
+        // Pink strokes, like a thick brush: every finished row, then the row the pen is on now
+        const strokeW = h / COLOUR_STROKES * 1.3;
+        panelCtx.globalAlpha = opacity;
+        panelCtx.strokeStyle = ACCENT_COLOUR;
+        panelCtx.lineWidth = strokeW;
+        panelCtx.lineCap = "round";
+        const nib = nibInPanel(amount);
+        for (let row = 0; row <= nib.row && amount > 0; row++) {
+            const y = (row + 0.5) * h / COLOUR_STROKES;
+            const startX = row % 2 === 0 ? -strokeW : w + strokeW;
+            const endX = row < nib.row ? w - startX : nib.x;
+            panelCtx.beginPath();
+            panelCtx.moveTo(startX, y);
+            panelCtx.lineTo(endX, y);
+            panelCtx.stroke();
+        }
+        panelCtx.globalAlpha = 1;
+        panelCtx.lineCap = "butt";
+
+        // Ink focus lines bursting out from the middle (they're the line art, so they never fade)
+        const centreX = w / 2;
+        const centreY = h * 0.45;
+        panelCtx.strokeStyle = TABLET_COLOUR;
+        panelCtx.lineWidth = 0.5 * u;
+        for (let i = 0; i < 40; i++) {
+            const angle = (i / 40) * Math.PI * 2;
+            // Lines start at different distances from the middle, like hand-drawn ones
+            const start = (5 + (i % 3) * 2.5) * u;
+            panelCtx.beginPath();
+            panelCtx.moveTo(centreX + Math.cos(angle) * start, centreY + Math.sin(angle) * start);
+            panelCtx.lineTo(centreX + Math.cos(angle) * w * 2, centreY + Math.sin(angle) * w * 2);
+            panelCtx.stroke();
+        }
+    }
+
+    // Only redraw the panel when something changed
+    let shownAmount = -1;
+    let shownOpacity = -1;
+    function showPanel(amount, opacity) {
+        if (amount === shownAmount && opacity === shownOpacity) return;
+        drawColourPanel(amount, opacity);
+        panelTexture.needsUpdate = true;
+        shownAmount = amount;
+        shownOpacity = opacity;
+    }
+
+    // Change 1: the kickstand, an ink plate from under the back of the tablet down to the desk.
+    // Its top end: on the tablet's underside, a quarter of the way in from the back (tilted with the tablet)
+    const hingeY = -(TABLET_THICKNESS / 2) * Math.cos(PROP_ANGLE) + (TABLET_DEPTH / 4) * Math.sin(PROP_ANGLE);
+    const hingeZ = -(TABLET_THICKNESS / 2) * Math.sin(PROP_ANGLE) - (TABLET_DEPTH / 4) * Math.cos(PROP_ANGLE);
+    // Its bottom end: on the desk, STAND_REACH further back
+    const rise = hingeY - DESK_Y;
+    const kickstand = new THREE.Mesh(
+        new THREE.BoxGeometry(TABLET_WIDTH * 0.5, 0.04, Math.hypot(rise, STAND_REACH)),
+        inkPlastic
+    );
+    // Put it halfway between its two ends, then lean it back so each end meets its point
+    kickstand.position.set(0, (hingeY + DESK_Y) / 2, hingeZ - STAND_REACH / 2);
+    kickstand.rotation.x = -Math.atan2(rise, STAND_REACH);
+    kickstand.castShadow = true;
+    drawingSet.add(kickstand);
+
+    // ---- The stylus: a pink pen with an ink nib, grip and end cap ----
+    // It's built standing up (along y) with its nib's point at 0, so the pen can be moved by its tip.
+    const stylus = new THREE.Group();
+
+    // Nib: an ink cone at the front
+    const nib = new THREE.Mesh(new THREE.ConeGeometry(STYLUS_RADIUS * 0.9, STYLUS_LENGTH * 0.1, 24), inkPlastic);
+    nib.rotation.x = Math.PI;      // flip the cone so its point faces the front of the pen
+    nib.position.y = STYLUS_LENGTH * 0.05;
+    // Grip: a slightly fatter ink band behind the nib
+    const grip = new THREE.Mesh(new THREE.CylinderGeometry(STYLUS_RADIUS * 1.12, STYLUS_RADIUS * 1.12, STYLUS_LENGTH * 0.2, 24), inkPlastic);
+    grip.position.y = STYLUS_LENGTH * 0.2;
+    // Body: pink
+    const penBody = new THREE.Mesh(new THREE.CylinderGeometry(STYLUS_RADIUS, STYLUS_RADIUS, STYLUS_LENGTH * 0.64, 24), pinkPlastic);
+    penBody.position.y = STYLUS_LENGTH * 0.62;
+    // End cap: ink
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(STYLUS_RADIUS, STYLUS_RADIUS, STYLUS_LENGTH * 0.06, 24), inkPlastic);
+    cap.position.y = STYLUS_LENGTH * 0.97;
+
+    for (const part of [nib, grip, penBody, cap]) {
+        part.castShadow = true;
+        stylus.add(part);
+    }
+    drawingSet.add(stylus);
+
+    // Resting pose: lying on the desk beside the tablet's right edge, nib toward you, turned a little
+    const restTurn = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, 0, STYLUS_ANGLE));
+    const restTip = new THREE.Vector3(
+        TABLET_WIDTH / 2 + STYLUS_GAP + Math.sin(STYLUS_ANGLE) * STYLUS_LENGTH / 2,
+        DESK_Y + STYLUS_RADIUS,
+        Math.cos(STYLUS_ANGLE) * STYLUS_LENGTH / 2
+    );
+    // Change 2, colouring pose: held up, leaning back to the right, like it's in a right hand
+    const screenUp = new THREE.Vector3(0, Math.cos(PROP_ANGLE), Math.sin(PROP_ANGLE));   // straight out of the screen
+    const drawTurn = new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        screenUp.clone().add(new THREE.Vector3(0.5, 0, 0.2)).normalize()
+    );
+    stylus.quaternion.copy(restTurn);
+    stylus.position.copy(restTip);
+
+    // A spot on the panel as a point next to the tablet, lifted off the screen by `lift`
+    tablet.updateMatrix();
+    function nibOnScreen(amount, lift) {
+        const nibSpot = nibInPanel(amount);
+        const point = screenPoint(panelRect.x + nibSpot.x, panelRect.y + nibSpot.y).applyMatrix4(tablet.matrix);
+        return point.addScaledVector(screenUp, lift);
+    }
+    const strokeStart = nibOnScreen(0, 0);
+    const hoverStart = nibOnScreen(0, PEN_HOVER);
+    const strokeEnd = nibOnScreen(1, 0);
+    const hoverEnd = nibOnScreen(1, PEN_HOVER);
+
+    // ---- Change 2: one loop of the stylus colouring the panel in ----
+    // Each step and how long it takes (seconds)
+    const STEPS = [
+        ["rest", 1.2],          // lying on the desk, panel empty
+        ["pickUp", 1.2],        // lifts up and moves over the panel
+        ["touchDown", 0.4],     // nib touches the screen
+        ["colour", COLOUR_SECONDS],   // colours the panel in, row by row
+        ["lift", 0.4],          // nib lifts off
+        ["putDown", 1.2],       // goes back to the desk
+        ["admire", 1.9],        // the panel stays coloured
+        ["fade", 1.2]           // the pink fades away so the loop can start again
+    ];
+    const LOOP_SECONDS = STEPS.reduce((total, step) => total + step[1], 0);
+    // Smooth start and stop for each move (takes 0 to 1, gives 0 to 1)
+    const ease = (s) => s * s * (3 - 2 * s);
+
+    function animateStylus(time) {
+        // Which step are we on, and how far through it (0 to 1)?
+        let t = time % LOOP_SECONDS;
+        let step = 0;
+        while (t > STEPS[step][1]) {
+            t -= STEPS[step][1];
+            step++;
+        }
+        const name = STEPS[step][0];
+        const progress = t / STEPS[step][1];
+        const s = ease(progress);
+
+        if (name === "rest" || name === "admire" || name === "fade") {
+            stylus.position.copy(restTip);
+            stylus.quaternion.copy(restTurn);
+        } else if (name === "pickUp") {
+            stylus.position.lerpVectors(restTip, hoverStart, s);
+            stylus.position.y += Math.sin(Math.PI * s) * PEN_ARC;   // arc up, so it doesn't go through the tablet
+            stylus.quaternion.slerpQuaternions(restTurn, drawTurn, s);
+        } else if (name === "touchDown") {
+            stylus.position.lerpVectors(hoverStart, strokeStart, s);
+            stylus.quaternion.copy(drawTurn);
+        } else if (name === "colour") {
+            stylus.position.copy(nibOnScreen(progress, 0));          // steady speed, no easing
+        } else if (name === "lift") {
+            stylus.position.lerpVectors(strokeEnd, hoverEnd, s);
+        } else if (name === "putDown") {
+            stylus.position.lerpVectors(hoverEnd, restTip, s);
+            stylus.position.y += Math.sin(Math.PI * s) * PEN_ARC;
+            stylus.quaternion.slerpQuaternions(drawTurn, restTurn, s);
+        }
+
+        // How much of the panel is pink, and how strong the pink is
+        if (name === "rest" || name === "pickUp" || name === "touchDown") showPanel(0, 1);
+        else if (name === "colour") showPanel(progress, 1);
+        else if (name === "fade") showPanel(1, 1 - s);
+        else showPanel(1, 1);
+    }
+
+    // An invisible floor that only shows the shadow (ink, very faint)
+    const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(12, 12),
+        new THREE.ShadowMaterial({ color: TABLET_COLOUR, opacity: 0.15 })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    // How far down the floor is (below the desk, so the tablet floats above it)
+    floor.position.y = -0.7;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    // ---- Drag to look around ----
+    const controls = new OrbitControls(camera, renderer.domElement);
+    // Smooth, gentle dragging
+    controls.enableDamping = true;
+    // No zoom and no panning: the mouse wheel should scroll my page, not the scene
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    // Stop visitors from looking up from under the floor (radians from straight above: 1.35 is about 77 degrees)
+    controls.maxPolarAngle = 1.35;
+
+    // Size the drawing to the #scene box, and again whenever the box changes size (like on a phone)
+    function fitToBox() {
+        const width = box.clientWidth;
+        const height = box.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        // If the box is narrower than 4:3 (on a phone), zoom out so the whole tablet still fits
+        camera.zoom = Math.min(1, camera.aspect / FRAME_SHAPE);
+        camera.updateProjectionMatrix();
+    }
+    fitToBox();
+    new ResizeObserver(fitToBox).observe(box);
+
+    // Some visitors set their computer to reduce motion. If so, the tablet stays still.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const clock = new THREE.Clock();
+
+    renderer.setAnimationLoop(() => {
+        const time = clock.getElapsedTime();
+        if (!reduceMotion.matches) {
+            // Float up and down, and turn gently from side to side
+            drawingSet.position.y = Math.sin(time * FLOAT_SPEED) * FLOAT_HEIGHT;
+            drawingSet.rotation.y = Math.sin(time * TURN_SPEED) * TURN_ANGLE;
+            // Change 2: the stylus colours the panel in
+            animateStylus(time);
+        } else {
+            // Still: the pen rests on the desk and the panel shows finished
+            stylus.position.copy(restTip);
+            stylus.quaternion.copy(restTurn);
+            showPanel(1, 1);
+        }
+        controls.update();
+        renderer.render(scene, camera);
+    });
+    </script>
+</body>
+</html>
+<!-- AI disclosure: asked Claude to set up the A1 page structure (header, nav, three sections, footer), carry over my Lab 4 fonts, palette and nav, suggest options for my skills, goals, About Me paragraph and tagline (I picked them; the Security+ goal too), polish the wording of my project cards, and add my image, links and Q&A notes. The 3D tablet scene was written by Claude from my brief and my art-directed changes; every prompt is in prompts.md. Week 6: asked Claude to move my image into images/ (and update its path) and add srcset and sizes for my thumbnail. -->

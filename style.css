@@ -1,0 +1,303 @@
+/* Palette — "Sakura ink" (carried over from Lab 4)
+   Ratios checked with https://webaim.org/resources/contrastchecker/
+
+   colour   hex       job                                 on paper   on surface
+   paper    #faf7f2   page background (warm newsprint)        —          —
+   surface  #ffffff   section panels                          —          —
+   ink      #1a1a1a   body text, headings, borders         16.29:1    17.40:1
+   accent   #c2255c   links and anything you can click      5.29:1     5.66:1
+   muted    #66605c   captions, small print (the footer)    5.79:1     6.19:1
+
+   Inside the dark header (background = ink #1a1a1a):
+   soft     #cfc8c3   nav links at rest, the tagline       10.53:1 on ink
+   paper    #faf7f2   nav links on hover/focus             16.29:1 on ink
+   dots     #444444   screentone dots (decoration only)     1.79:1 on ink, on purpose.
+                      Even a letter sitting right on a dot still passes:
+                      soft on dots 5.89:1, paper on dots 9.11:1.
+   accent   #c2255c   3.08:1 on ink: FAILS for text, so in the header pink is only
+                      decoration (the bar under a nav link, the shadow behind my name),
+                      never text.
+
+   Project titles on hover/focus: white #ffffff on an accent fill, 5.66:1.
+*/
+
+/* Type: Dela Gothic One (headings) + Literata (body), from Lab 4.
+   Why this pairing: Dela Gothic One is a heavy, blocky face from a Japanese
+   foundry that looks like a manga title logo, so it carries the personality.
+   Literata is a serif made for long reading, so it carries the reading.
+   Type scale, in rem so it follows the reader's browser setting:
+     body 1.1rem → h3 1.3rem → h2 1.6rem → h1 2.6rem
+   h3 is new for A1 (Skills and the project titles): half a step between body and h2.
+   Below body: nav links 1rem (in the heading font), the image caption 0.95rem. */
+
+/* UI patterns on this page:
+   header    = masthead: my name in a speech bubble on screentone, nav bar under it
+   nav       = a horizontal nav bar; each link jumps to a section's id
+   main      = three stacked panels: About Me, Projects, Contact
+   .about-row = two columns (my words + the 3D tablet) that wrap on a narrow screen
+   .skills   = tags (pill-shaped labels)
+   .projects = cards (comic panels) in a row that wraps
+   footer    = a simple footer */
+
+body {
+    font-family: "Literata", Georgia, serif;   /* fallback if the font can't load */
+    font-size: 1.1rem;                         /* scale: body */
+    line-height: 1.6;
+    background-color: #faf7f2;                 /* paper */
+    color: #1a1a1a;                            /* ink, 16.29:1 on paper */
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-family: "Dela Gothic One", "Arial Black", sans-serif;
+    font-weight: 400;          /* Dela Gothic One only comes in one weight, and it's already heavy */
+    line-height: 1.2;
+}
+
+h1 { font-size: 2.6rem; }      /* scale: h1 */
+h2 { font-size: 1.6rem; }      /* scale: h2. Ink, not pink: accent is saved for "click". */
+h3 { font-size: 1.3rem; }      /* scale: h3 */
+
+p { max-width: 65ch; }         /* keeps lines about 60-75 characters */
+
+a { color: #c2255c; }          /* accent: the one colour that says "click" */
+
+/* A clear keyboard focus ring on every link. Never outline: none.
+   The nav and the project titles change it below. */
+a:focus {
+    outline: 2px solid #1a1a1a;    /* ink */
+    outline-offset: 3px;
+}
+
+/* One width for the header's contents and main, so their left edges line up.
+   Auto margins on the left and right centre the box on a wide screen. */
+.container {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+/* ---------- Header (masthead) ---------- */
+/* How are the dots made? radial-gradient draws one small dot, and background-size repeats it every 8px, like manga screentone. */
+header {
+    background-color: #1a1a1a;                                     /* ink */
+    background-image: radial-gradient(#444444 1px, transparent 1px);  /* dots */
+    background-size: 8px 8px;
+    padding: 2rem 1.5rem 1.25rem;
+}
+
+/* My name in a speech bubble: the first thing you see when you squint. */
+header h1 {
+    display: inline-block;
+    margin: 0 0 0.75rem;
+    padding: 0.5rem 1.5rem;
+    background-color: #ffffff;     /* surface */
+    color: #1a1a1a;                /* ink, 17.40:1 */
+    border: 4px solid #1a1a1a;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    box-shadow: 6px 6px 0 #c2255c; /* accent as decoration only */
+}
+
+.tagline {
+    margin: 0 0 1.25rem;
+    color: #cfc8c3;                /* soft, 10.53:1 on ink */
+}
+
+/* ---------- Nav bar ---------- */
+/* The nav is a flex container: its links sit in a row with room between them. */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+nav a {
+    font-family: "Dela Gothic One", "Arial Black", sans-serif;
+    font-size: 1rem;
+    color: #cfc8c3;                       /* soft, 10.53:1 on ink */
+    text-decoration: none;
+    padding: 0.3rem 0;
+    border-bottom: 3px solid transparent; /* reserves space for the hover bar so nothing jumps */
+    transition: color 0.2s, border-color 0.2s;   /* on the normal state, so it glides both ways */
+}
+
+/* Hover = mouse, focus = keyboard. Both brighten the text and show a pink bar.
+   The text can't turn accent pink here because pink on ink is only 3.08:1. */
+nav a:hover,
+nav a:focus {
+    color: #faf7f2;                       /* paper, 16.29:1 on ink */
+    border-bottom-color: #c2255c;         /* accent bar */
+}
+
+/* The focus ring is paper here, because an ink ring would vanish on the ink header. */
+nav a:focus {
+    outline: 2px solid #faf7f2;
+    outline-offset: 4px;
+}
+
+/* ---------- Main: three stacked panels ---------- */
+main {
+    padding: 1.5rem;
+}
+
+/* Section surfaces: white panels with an inked edge. */
+main section {
+    background-color: #ffffff;     /* surface */
+    border: 2px solid #1a1a1a;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+main section h2 {
+    margin-top: 0;                 /* the panel's padding already gives room above */
+}
+
+/* ---------- About Me ---------- */
+/* Phone first: my words, then the 3D tablet under them, in one column.
+   On a wider screen the media query at the bottom puts them side by side. */
+.about-row {
+    display: flex;
+    flex-direction: column;        /* one column: stacked top to bottom */
+    gap: 1.5rem;
+}
+
+/* Skills as tags */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;              /* no bullets: the pill shape shows it's a list */
+    padding: 0;
+}
+
+.skills li {
+    background-color: #faf7f2;     /* paper, ink text 16.29:1 */
+    border: 2px solid #1a1a1a;
+    border-radius: 999px;          /* a big radius turns the box into a pill */
+    padding: 0.2rem 0.9rem;
+}
+
+/* My colouring: a sensible size, centred, framed like a comic panel */
+.about-image {
+    margin: 2rem 0 0;              /* a figure has wide side margins by default; I only want room above */
+    text-align: center;            /* centres the caption */
+}
+
+.about-image img {
+    display: block;
+    width: 20rem;                  /* a sensible size: the file is 1416 x 2000, far too big to show full size */
+    max-width: 100%;               /* never wider than the panel on a phone */
+    height: auto;                  /* keeps its shape */
+    margin: 0 auto;                /* auto left and right margins centre it */
+    border: 2px solid #1a1a1a;
+    box-shadow: 6px 6px 0 #1a1a1a; /* comic-panel shadow, like the project cards */
+}
+
+.about-image figcaption {
+    margin-top: 1rem;
+    color: #66605c;                /* muted, 6.19:1 on surface */
+    font-size: 0.95rem;
+}
+
+/* ---------- 3D scene: the drawing tablet (from my brief, prompts.md) ---------- */
+/* Week 6: the scene fills the width of its column at every screen size.
+   aspect-ratio keeps the 4:3 shape from my brief (400 x 300), so the height follows the width.
+   The script measures this div and redraws the 3D view whenever it changes size. */
+#scene {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    min-width: 0;                  /* lets it shrink in a flex row; without it, the drawn canvas would hold it wide */
+    overflow: hidden;              /* the canvas inside can't stretch the box, so aspect-ratio decides the height */
+    cursor: grab;                  /* hints that you can drag it */
+}
+
+#scene:active {
+    cursor: grabbing;              /* while you drag */
+}
+
+#scene canvas {
+    display: block;                /* removes a small gap under the canvas */
+}
+
+/* ---------- Projects: cards in a row that wraps ---------- */
+/* .projects is the flex container that holds the three cards. */
+.projects {
+    display: flex;
+    flex-wrap: wrap;               /* the A1 rule: cards drop to the next line when there's no room */
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.projects li {
+    flex: 1 1 100%;                /* phone first: each card takes the full width, one per line */
+    background-color: #faf7f2;     /* paper inside the white section, ink text 16.29:1 */
+    border: 2px solid #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a; /* solid offset shadow, like a comic panel */
+    padding: 1rem 1.25rem;
+}
+
+.projects h3 {
+    margin-top: 0;
+}
+
+/* Project titles are links. At rest: ink text with a pink bar under it (pink = "click"). */
+.projects h3 a {
+    color: #1a1a1a;                       /* ink, 16.29:1 on paper */
+    text-decoration: none;
+    padding: 0 0.2rem;                    /* room for the pink fill on hover */
+    border-bottom: 3px solid #c2255c;     /* accent bar */
+    transition: color 0.2s, background-color 0.2s;   /* on the normal state, so it glides both ways */
+}
+
+/* Hover and focus: the title fills with pink like a highlighter. */
+.projects h3 a:hover,
+.projects h3 a:focus {
+    color: #ffffff;                       /* white on accent, 5.66:1 */
+    background-color: #c2255c;
+}
+
+/* ---------- Contact ---------- */
+.contact {
+    list-style: none;
+    padding: 0;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    text-align: center;
+    padding: 1rem;
+    border-top: 2px solid #1a1a1a;
+    color: #66605c;                /* muted, 5.79:1 on paper */
+}
+
+footer p {
+    max-width: none;               /* the 65ch limit would push centred text off-centre */
+}
+
+/* ---------- Wider screens: 48rem (768px) and up ---------- */
+/* Everything above is the phone layout. This media query only starts at 48rem wide,
+   and it widens the layout: About Me goes side by side, and the project cards share a row. */
+@media (min-width: 48rem) {
+    /* About Me: my words on the left, the 3D tablet on the right */
+    .about-row {
+        flex-direction: row;
+        align-items: center;       /* the tablet lines up with the middle of my words */
+    }
+
+    /* Two equal columns: 1 1 0 means "start from nothing and share the room equally" */
+    .about-text,
+    #scene {
+        flex: 1 1 0;
+    }
+
+    /* Project cards: equal shares; a card wraps to the next line when it would be narrower than 15rem.
+       At 768px that's two cards and one below; on a laptop it's all three in a row. */
+    .projects li {
+        flex: 1 1 15rem;
+    }
+}
+
+/* AI disclosure: asked Claude to set up the A1 styles from my Lab 4 fonts, palette and nav (ratios re-checked), suggest the tags, project-card, About Me and image styles, and give me the #scene rule from my 3D brief, with notes. Week 6: asked Claude to make the layout mobile-first with a 48rem media query and make the 3D scene fill its column. */
