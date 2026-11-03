@@ -69,6 +69,17 @@ a:focus {
     outline-offset: 3px;
 }
 
+/* Lab 7: the skip link. Off screen until the keyboard reaches it,
+   then it shows at the top of the page with the ink focus ring above. */
+.skip {
+    position: absolute;
+    left: -9999px;
+}
+
+.skip:focus {
+    position: static;
+}
+
 /* One width for the header's contents and main, so their left edges line up.
    Auto margins on the left and right centre the box on a wide screen. */
 .container {
@@ -220,6 +231,18 @@ main section h2 {
     display: block;                /* removes a small gap under the canvas */
 }
 
+/* Lab 7: phones don't load the scene (see the script at the bottom of index.html), so the box is hidden
+   under 700px. Otherwise it would be an empty white box. 43.75rem = 700px, the same width the script checks. */
+#scene {
+    display: none;
+}
+
+@media (min-width: 43.75rem) {
+    #scene {
+        display: block;
+    }
+}
+
 /* ---------- Projects: cards in a row that wraps ---------- */
 /* .projects is the flex container that holds the three cards. */
 .projects {
@@ -300,4 +323,4 @@ footer p {
     }
 }
 
-/* AI disclosure: asked Claude to set up the A1 styles from my Lab 4 fonts, palette and nav (ratios re-checked), suggest the tags, project-card, About Me and image styles, and give me the #scene rule from my 3D brief, with notes. Week 6: asked Claude to make the layout mobile-first with a 48rem media query and make the 3D scene fill its column. */
+/* AI disclosure: asked Claude to set up the A1 styles from my Lab 4 fonts, palette and nav (ratios re-checked), suggest the tags, project-card, About Me and image styles, and give me the #scene rule from my 3D brief, with notes. Week 6: asked Claude to make the layout mobile-first with a 48rem media query and make the 3D scene fill its column. Week 7: asked Claude for the skip link and to hide the 3D scene under 700px. */
