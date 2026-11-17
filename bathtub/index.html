@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bathtub Race entry form (practice)</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- defer: the script runs after the page is built, so every element
+         it looks for already exists. -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="images/bathtub.svg" width="160" height="100"
+             alt="A cartoon bathtub with an outboard motor.">
+        <h1>Bathtub Race entry form</h1>
+        <p>A practice form for ITAS 191. It is not connected to the real
+           race, so use made-up details.</p>
+    </header>
+
+    <main>
+        <section>
+            <button type="button" id="rules-button">Show the rules</button>
+            <div id="rules" class="hidden">
+                <h2>Race rules (practice version)</h2>
+                <ul>
+                    <li>Every racer wears a life jacket.</li>
+                    <li>Every tub has a name, painted on its side.</li>
+                    <li>Every entry needs a signed waiver.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- action: where the browser sends the data. method="post": in
+             the body of the request, not in the address bar. -->
+        <form action="https://httpbin.org/post" method="post">
+
+            <!-- Radio buttons share one name, so choosing one clears the
+                 other. required on the first one makes the group required. -->
+            <fieldset>
+                <legend>Event *</legend>
+                <input type="radio" id="event-stock" name="event" value="stock"
+                       required>
+                <label for="event-stock">Stock</label>
+                <input type="radio" id="event-modified" name="event"
+                       value="modified">
+                <label for="event-modified">Modified</label>
+            </fieldset>
+
+            <label for="last-name">Last name *</label>
+            <input type="text" id="last-name" name="last_name" required>
+
+            <!-- One field, as a pattern for the rest: for= matches id=,
+                 and name= is the label the server sees. -->
+            <label for="first-name">First name *</label>
+            <input type="text" id="first-name" name="first_name" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address">
+
+            <!-- pattern: letter, digit, letter, an optional space, then
+                 digit, letter, digit. The empty <p> is filled by Part 4. -->
+            <label for="postal">Postal code</label>
+            <input type="text" id="postal" name="postal_code" maxlength="7"
+                   pattern="[A-Za-z][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]">
+            <p id="postal-place" class="note"></p>
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city">
+
+            <!-- Each value is the two-letter code, so the Part 4 lookup can
+                 set it from the postal code. -->
+            <label for="province">Province or territory</label>
+            <select id="province" name="province">
+                <option value="">Choose one</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="MB">Manitoba</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NU">Nunavut</option>
+                <option value="ON">Ontario</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="QC">Quebec</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="YT">Yukon</option>
+            </select>
+
+            <!-- type="email" makes the browser check the shape (name@place). -->
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="birth-date">Date of birth *</label>
+            <input type="date" id="birth-date" name="birth_date" required>
+
+            <label for="tub-name">Tub name</label>
+            <input type="text" id="tub-name" name="tub_name" maxlength="40">
+
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" cols="40" rows="3"></textarea>
+
+            <label for="waiver">I accept the waiver *</label>
+            <input type="checkbox" id="waiver" name="waiver" value="yes" required>
+
+            <button type="submit">Enter the race</button>
+        </form>
+    </main>
+</body>
+</html>
