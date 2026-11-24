@@ -8,6 +8,11 @@
     <!-- defer: the script runs after the page is built, so every element
          it looks for already exists. -->
     <script src="script.js" defer></script>
+    <!-- Lab 9. heatmap.js is given and draws the saved runs; tracker.js
+         records them. They run in this order, so tracker.js can use the
+         functions heatmap.js defines. -->
+    <script src="heatmap.js" defer></script>
+    <script src="tracker.js" defer></script>
 </head>
 <body>
     <header>
@@ -31,16 +36,27 @@
             </div>
         </section>
 
+        <section id="heat-controls">
+            <h2>Tracking</h2>
+            <p id="tracker-status">Not recording yet.</p>
+            <p id="hover-status"></p>
+            <button type="button" id="heat-button">Show heat map</button>
+            <button type="button" id="download-button">Download runs</button>
+            <button type="button" id="clear-button">Clear runs</button>
+            <p id="heat-summary"></p>
+            <ul id="hover-times"></ul>
+        </section>
+
+        <p id="tracking-notice">This practice page records how the mouse
+           moves over the form, and sends that record with the entry.</p>
+
         <!-- action: where the browser sends the data. method="post": in
              the body of the request, not in the address bar. -->
         <form action="https://httpbin.org/post" method="post">
-
-            <!-- Radio buttons share one name, so choosing one clears the
-                 other. required on the first one makes the group required. -->
             <fieldset>
                 <legend>Event *</legend>
-                <input type="radio" id="event-stock" name="event" value="stock"
-                       required>
+                <input type="radio" id="event-stock" name="event"
+                       value="stock" required>
                 <label for="event-stock">Stock</label>
                 <input type="radio" id="event-modified" name="event"
                        value="modified">
@@ -48,28 +64,27 @@
             </fieldset>
 
             <label for="last-name">Last name *</label>
-            <input type="text" id="last-name" name="last_name" required>
+            <input type="text" id="last-name" name="last_name"
+                   autocomplete="family-name" required>
 
-            <!-- One field, as a pattern for the rest: for= matches id=,
-                 and name= is the label the server sees. -->
             <label for="first-name">First name *</label>
-            <input type="text" id="first-name" name="first_name" required>
+            <input type="text" id="first-name" name="first_name"
+                   autocomplete="given-name" required>
 
             <label for="address">Address</label>
-            <input type="text" id="address" name="address">
+            <input type="text" id="address" name="address"
+                   autocomplete="address-line1">
 
-            <!-- pattern: letter, digit, letter, an optional space, then
-                 digit, letter, digit. The empty <p> is filled by Part 4. -->
             <label for="postal">Postal code</label>
-            <input type="text" id="postal" name="postal_code" maxlength="7"
+            <input type="text" id="postal" name="postal_code"
+                   autocomplete="postal-code" maxlength="7"
                    pattern="[A-Za-z][0-9][A-Za-z] ?[0-9][A-Za-z][0-9]">
             <p id="postal-place" class="note"></p>
 
             <label for="city">City</label>
-            <input type="text" id="city" name="city">
+            <input type="text" id="city" name="city"
+                   autocomplete="address-level2">
 
-            <!-- Each value is the two-letter code, so the Part 4 lookup can
-                 set it from the postal code. -->
             <label for="province">Province or territory</label>
             <select id="province" name="province">
                 <option value="">Choose one</option>
@@ -78,8 +93,8 @@
                 <option value="MB">Manitoba</option>
                 <option value="NB">New Brunswick</option>
                 <option value="NL">Newfoundland and Labrador</option>
-                <option value="NT">Northwest Territories</option>
                 <option value="NS">Nova Scotia</option>
+                <option value="NT">Northwest Territories</option>
                 <option value="NU">Nunavut</option>
                 <option value="ON">Ontario</option>
                 <option value="PE">Prince Edward Island</option>
@@ -88,9 +103,9 @@
                 <option value="YT">Yukon</option>
             </select>
 
-            <!-- type="email" makes the browser check the shape (name@place). -->
             <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email"
+                   autocomplete="email" required>
 
             <label for="birth-date">Date of birth *</label>
             <input type="date" id="birth-date" name="birth_date" required>
@@ -99,12 +114,21 @@
             <input type="text" id="tub-name" name="tub_name" maxlength="40">
 
             <label for="comments">Comments</label>
-            <textarea id="comments" name="comments" cols="40" rows="3"></textarea>
+            <textarea id="comments" name="comments" cols="40"
+                      rows="3"></textarea>
 
             <label for="waiver">I accept the waiver *</label>
-            <input type="checkbox" id="waiver" name="waiver" value="yes" required>
+            <input type="checkbox" id="waiver" name="waiver" value="yes"
+                   required>
+
+            <!-- Lab 9 Part 5: never shown, but sent with the form like any
+                 other field. tracker.js fills it with the run on submit. -->
+            <input type="hidden" id="tracking" name="tracking">
 
             <button type="submit">Enter the race</button>
+
+            <!-- The heat map is drawn here, over the form. -->
+            <canvas id="heatmap" class="hidden"></canvas>
         </form>
     </main>
 </body>

@@ -1,6 +1,7 @@
-// Bathtub Race entry form: the page's behaviour.
+// Bathtub Race entry form: the Lab 8 scripts, unchanged in Lab 9.
 //
-// Part 1: the rules button.
+// Lab 8 Part 1: the rules button.
+
 const rulesButton = document.querySelector("#rules-button");
 const rules = document.querySelector("#rules");
 
@@ -8,12 +9,15 @@ rulesButton.addEventListener("click", () => {
     rules.classList.toggle("hidden");
 });
 
-// Part 4: the postal code.
+// Lab 8 Part 4: the postal code.
+
 const postal = document.querySelector("#postal");
 const city = document.querySelector("#city");
 const province = document.querySelector("#province");
 const place = document.querySelector("#postal-place");
 
+// On every key: capitals, and a message a person can act on in place of
+// the browser's generic one.
 postal.addEventListener("input", () => {
     postal.value = postal.value.toUpperCase();
     if (postal.validity.patternMismatch) {
@@ -23,6 +27,8 @@ postal.addEventListener("input", () => {
     }
 });
 
+// When the visitor leaves the field: look up the first three characters,
+// which name the area, and fill in what the page can.
 postal.addEventListener("change", () => {
     if (postal.value === "" || !postal.checkValidity()) {
         place.textContent = "";
@@ -44,5 +50,3 @@ postal.addEventListener("change", () => {
             place.textContent = "No match for that postal code.";
         });
 });
-
-// AI use: I typed this file myself; I asked Claude to explain each line and to check that it worked in the browser.

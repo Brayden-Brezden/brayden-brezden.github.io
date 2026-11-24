@@ -1,4 +1,5 @@
-/* Bathtub Race entry form. Part 3 adds the grid layout. */
+/* Bathtub Race entry form: the Lab 8 reference, with the Lab 9 heat map
+   styles at the end. */
 
 body {
     font-family: system-ui, sans-serif;
@@ -15,7 +16,7 @@ main {
     margin: 0 auto;
 }
 
-/* The rules start hidden; the script in Part 1 toggles this class. */
+/* The rules start hidden; the rules script from Lab 8 toggles this class. */
 .hidden {
     display: none;
 }
@@ -45,52 +46,76 @@ button:focus {
     color: #ffffff;
 }
 
-/* Part 3: a grid for the form.
-   Phone first: display: grid with no columns gives one column, so each
-   label sits above its field. Every child of the form is one grid item. */
+/* Lab 8 Part 3. On a phone the form is one column: each label sits
+   above its field, in source order. */
 form {
     display: grid;
     gap: 0.5rem;
     margin-top: 1.5rem;
-    padding: 1.5rem;
-    background: #ffffff;           /* its own background, so it stands out */
-    border: 2px solid #0b5f86;
-    border-radius: 0.5rem;
+    padding: 1rem;
+    background: #ffffff;
 }
 
-/* These stretch across every column: 1 is the first line, -1 the last. */
+/* The event choices and the button take the full width at any size. */
 fieldset,
 form button {
     grid-column: 1 / -1;
 }
 
-/* The button sits in the middle of its row instead of filling it. */
 form button {
     justify-self: center;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
-/* The checkbox stays its own size at the start of its cell. */
+/* Lets the checkbox sit at its natural size instead of stretching. */
 input[type="checkbox"] {
     justify-self: start;
 }
 
-/* The postal-code line: small, and no extra space when it is empty. */
 .note {
     margin: 0;
-    font-size: 0.9rem;
+    color: #3d5866;
 }
 
-/* From 700 pixels wide: two columns, labels left, fields right. */
+/* 700px and up: labels in a column of their own, fields beside them. */
 @media (min-width: 700px) {
     form {
-        grid-template-columns: 12rem 1fr;   /* 1fr = the rest of the width */
+        grid-template-columns: 12rem 1fr;
         align-items: center;
         column-gap: 1rem;
     }
 
-    /* The note goes under its field, in the second column. */
     .note {
         grid-column: 2;
     }
+}
+
+/* Lab 9. The heat map is drawn on a canvas laid over the form. The form
+   is its positioning box, and pointer-events: none lets every click and
+   key reach the fields underneath. */
+form {
+    position: relative;
+}
+
+#heatmap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#heat-controls {
+    margin-top: 1.5rem;
+}
+
+#heat-controls button {
+    margin: 0 0.5rem 0.5rem 0;
+}
+
+#tracker-status,
+#hover-status,
+#heat-summary {
+    margin: 0.25rem 0;
 }
